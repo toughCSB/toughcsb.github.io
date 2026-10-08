@@ -1,0 +1,16 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="referrer" content="no-referrer">
+<title>OAuth callback</title>
+<body style="font-family:sans-serif;max-width:40em;margin:3em auto">
+<h1>Tesla 로그인 완료 / Login complete</h1>
+<p>아래 code를 복사해 박스에서 <code>03-exchange-code.sh</code>에 넣으세요 (몇 분 내 만료).<br>
+Copy the code below into 03-exchange-code.sh on the box (expires within minutes). This page sends nothing anywhere.</p>
+<p><b>code:</b><br><textarea id="c" rows="4" cols="60" readonly></textarea></p>
+<p><b>state:</b> <code id="s"></code></p>
+<p id="e" style="color:#b00"></p>
+<script>
+const p=new URLSearchParams(location.search);
+document.getElementById('c').value=p.get('code')||'';
+document.getElementById('s').textContent=p.get('state')||'';
+if(p.get('error'))document.getElementById('e').textContent='error: '+p.get('error')+' '+(p.get('error_description')||'');
+history.replaceState(null,'',location.pathname); // drop code from address bar/history
+</script></body></html>
